@@ -25,7 +25,7 @@
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:setActivityColor="@{satSummary.active}"
-                android:layout_margin="@dimen/margin_medium"
+                android:layout_margin="@dimen/margin_small"
                 tools:background="@color/active_green"
                 style="@style/ActiveSigner"/>
 

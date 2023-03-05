@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.ahk.satfinder.core.data.model.SatelliteDetail
 import com.ahk.satfinder.core.data.model.SatelliteSummary
 import com.ahk.satfinder.databinding.FragmentSatListBinding
 import com.ahk.satfinder.ui.satitem.SatSummaryAdapter
@@ -17,7 +19,7 @@ class SatList : Fragment() {
 
     private val viewModel: SatListViewModel by viewModels()
     lateinit var binding: FragmentSatListBinding
-    val compositeDisposable = CompositeDisposable()
+    private val compositeDisposable = CompositeDisposable()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,10 +44,13 @@ class SatList : Fragment() {
         viewModel.loadAssetList()
     }
 
-    fun onStateChange(uiState: UIState) {
+    private fun onStateChange(uiState: UIState) {
         when (uiState) {
             is UIState.Success -> {
                 onSatelliteResultReceived(uiState.data)
+            }
+            is UIState.NavigateToDetailScreen -> {
+                navigateToDetailScreen(uiState.detail)
             }
             else -> {
                 // TODO() Add unhandled state or do not anything and log it
@@ -54,7 +59,15 @@ class SatList : Fragment() {
         }
     }
 
-    fun onSatelliteResultReceived(satSummaries: List<SatelliteSummary>) {
+    private fun navigateToDetailScreen(detail: SatelliteDetail) {
+        findNavController().navigate(
+            SatListDirections.actionSatListToDetail(
+                detail,
+            ),
+        )
+    }
+
+    private fun onSatelliteResultReceived(satSummaries: List<SatelliteSummary>) {
         satSummaries.let {
             (binding.satList.adapter as SatSummaryAdapter).setData(it)
         }

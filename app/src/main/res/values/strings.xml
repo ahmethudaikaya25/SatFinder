@@ -3,4 +3,8 @@
     <string name="search">Search</string>
     <string name="active">Active</string>
     <string name="inactive">Inactive</string>
+    <string name="height_mass_title">Height/Mass:</string>
+    <string name="cost_title">Cost:</string>
+    <string name="last_position_title">Last Position:</string>
+    <string name="position_loading">Position is loading...!!</string>
 </resources>

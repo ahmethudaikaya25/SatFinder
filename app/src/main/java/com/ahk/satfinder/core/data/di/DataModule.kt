@@ -1,8 +1,11 @@
 package com.ahk.satfinder.core.data.di
 
 import android.content.Context
+import androidx.room.Room
 import com.ahk.satfinder.core.data.assets.AssetService
 import com.ahk.satfinder.core.data.assets.AssetServiceImpl
+import com.ahk.satfinder.core.data.db.SatelliteDB
+import com.ahk.satfinder.core.data.db.SatelliteDetailDAO
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,4 +20,14 @@ class DataModule {
     @Singleton
     fun provideAssetService(@ApplicationContext context: Context): AssetService =
         AssetServiceImpl(context.assets)
+
+    @Provides
+    @Singleton
+    fun provideSatelliteDB(@ApplicationContext context: Context): SatelliteDB =
+        Room.databaseBuilder(context, SatelliteDB::class.java, "satellite.db").build()
+
+    @Provides
+    @Singleton
+    fun provideSatelliteDetailDAO(satelliteDB: SatelliteDB): SatelliteDetailDAO =
+        satelliteDB.satelliteDetailDAO()
 }

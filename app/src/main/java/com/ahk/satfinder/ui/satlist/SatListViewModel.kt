@@ -5,7 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ahk.satfinder.core.data.model.SatelliteSummary
 import com.ahk.satfinder.core.domain.assets.FilterAssetsUseCase
-import com.ahk.satfinder.core.domain.assets.GetAssetsUseCase
+import com.ahk.satfinder.core.domain.assets.GetSatelliteSummariesUseCase
+import com.ahk.satfinder.core.domain.detail.GetDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
@@ -15,15 +16,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SatListViewModel @Inject constructor(
-    private val getAssetsUseCase: GetAssetsUseCase,
+    private val getSatelliteSummariesUseCase: GetSatelliteSummariesUseCase,
     private val filterAssetsUseCase: FilterAssetsUseCase,
+    private val getDetailUseCase: GetDetailUseCase,
 ) : ViewModel() {
 
     private val mutableUIState =
         MutableLiveData<UIState>(UIState.Idle)
     val uiState = mutableUIState as LiveData<UIState>
 
-    val compositeDisposable = CompositeDisposable()
+    private val compositeDisposable = CompositeDisposable()
 
     private val mutableFormState = MutableLiveData(FormState())
     val formState = mutableFormState as LiveData<FormState>
@@ -31,12 +33,24 @@ class SatListViewModel @Inject constructor(
     var searchDisposable: Disposable? = null
 
     fun onListItemClicked(satelliteSummary: SatelliteSummary) {
-        // TODO() Get detailed information and set UIState as set fragment
+        val disposable = getDetailUseCase.invoke(satelliteSummary)
+            .subscribeOn(Schedulers.io())
+            .subscribe({ satelliteDetail ->
+                mutableUIState.postValue(UIState.NavigateToDetailScreen(satelliteDetail))
+            }, {
+                mutableUIState.postValue(
+                    UIState.Error(
+                        throwable = it,
+                        message = "Satellite detail getting error",
+                    ),
+                )
+            })
+        compositeDisposable.add(disposable)
     }
 
     fun loadAssetList() {
         mutableUIState.postValue(UIState.Loading)
-        val disposable = getAssetsUseCase.invoke()
+        val disposable = getSatelliteSummariesUseCase.invoke()
             .subscribeOn(Schedulers.io())
             .subscribe({ satelliteSum ->
                 mutableUIState.postValue(UIState.Success(satelliteSum))
@@ -49,11 +63,6 @@ class SatListViewModel @Inject constructor(
                 )
             })
         compositeDisposable.add(disposable)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.clear()
     }
 
     fun searchTextChanged() = searchMovies()
@@ -82,5 +91,10 @@ class SatListViewModel @Inject constructor(
                         },
                     )
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
     }
 }

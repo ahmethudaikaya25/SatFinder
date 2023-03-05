@@ -19,8 +19,8 @@
             android:id="@+id/searchLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_medium"
-            android:layout_marginVertical="@dimen/margin_large"
+            android:layout_marginHorizontal="@dimen/margin_small"
+            android:layout_marginVertical="@dimen/margin_medium"
             app:layout_constraintTop_toTopOf="parent"
             app:startIconDrawable="@drawable/ic_search">
 
@@ -34,14 +34,22 @@
                 android:text="@={viewModel.formState.search}" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginHorizontal="@dimen/margin_small"
+            app:layout_constraintTop_toBottomOf="@id/searchLayout"
+            app:setLoadingVisibility="@{viewModel.uiState}" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/satList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_medium"
-            android:layout_marginVertical="@dimen/margin_large"
+            android:layout_marginHorizontal="@dimen/margin_small"
+            android:layout_marginVertical="@dimen/margin_medium"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/searchLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/progressBar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

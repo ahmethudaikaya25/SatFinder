@@ -2,8 +2,22 @@
 <resources>
 
     <style name="ActiveSigner">
-        <item name="android:layout_margin">@dimen/margin_medium</item>
+        <item name="android:layout_margin">@dimen/margin_small</item>
         <item name="cornerRadius">10dp</item>
+    </style>
 
+    <style name="SmallTitle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginEnd">8dp</item>
+    </style>
+
+    <style name="SmallValue" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textStyle">normal</item>
+        <item name="android:layout_marginStart">8dp</item>
+    </style>
+
+    <style name="BigTitle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">24sp</item>
     </style>
 </resources>
