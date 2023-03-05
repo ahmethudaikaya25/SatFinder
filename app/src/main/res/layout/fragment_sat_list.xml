@@ -21,14 +21,17 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_medium"
             android:layout_marginVertical="@dimen/margin_large"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/ic_search">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:afterTextChanged="@{() -> viewModel.searchTextChanged()}"
                 android:hint="@string/search"
-                android:inputType="text" />
+                android:inputType="text"
+                android:text="@={viewModel.formState.search}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -39,5 +42,6 @@
             android:layout_marginVertical="@dimen/margin_large"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/searchLayout" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

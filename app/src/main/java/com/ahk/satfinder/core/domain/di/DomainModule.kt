@@ -1,10 +1,7 @@
 package com.ahk.satfinder.core.domain.di
 
 import com.ahk.satfinder.core.data.assets.AssetService
-import com.ahk.satfinder.core.domain.assets.AssetRepository
-import com.ahk.satfinder.core.domain.assets.AssetRepositoryImpl
-import com.ahk.satfinder.core.domain.assets.GetAssetListUseCase
-import com.ahk.satfinder.core.domain.assets.GetAssetListUseCaseImpl
+import com.ahk.satfinder.core.domain.assets.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,6 +15,10 @@ class DomainModule {
         AssetRepositoryImpl(assetService)
 
     @Provides
-    fun provideGetAssetListUseCase(assetRepository: AssetRepository): GetAssetListUseCase =
-        GetAssetListUseCaseImpl(assetRepository)
+    fun provideGetAssetUseCase(assetRepository: AssetRepository): GetAssetsUseCase =
+        GetAssetsUseCaseImpl(assetRepository)
+
+    @Provides
+    fun provideFilterAssetUseCase(assetRepository: AssetRepository): FilterAssetsUseCase =
+        FilterAssetsUseCaseImpl(assetRepository)
 }

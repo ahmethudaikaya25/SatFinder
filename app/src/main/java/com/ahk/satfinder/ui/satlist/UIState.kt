@@ -6,5 +6,5 @@ sealed class UIState {
     object Idle : UIState()
     object Loading : UIState()
     data class Success(val data: List<SatelliteSummary>) : UIState()
-    data class Error(val message: String) : UIState()
+    data class Error(val throwable: Throwable?, val message: String?) : UIState()
 }

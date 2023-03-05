@@ -2,7 +2,7 @@ package com.ahk.satfinder.core.domain.assets
 
 import com.ahk.satfinder.BuildConfig
 import com.ahk.satfinder.core.data.assets.AssetService
-import com.ahk.satfinder.core.data.model.AssetErrorModels
+import com.ahk.satfinder.core.data.model.AssetException
 import com.ahk.satfinder.core.data.model.SatelliteSummary
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -22,7 +22,7 @@ class AssetRepositoryImpl(
                 return@flatMap Single.just(summaries)
             } catch (e: Exception) {
                 return@flatMap Single.error<List<SatelliteSummary>>(
-                    AssetErrorModels.AssetCouldNotBeParsed(
+                    AssetException.AssetCouldNotBeParsed(
                         "Could not parse json",
                     ),
                 )
