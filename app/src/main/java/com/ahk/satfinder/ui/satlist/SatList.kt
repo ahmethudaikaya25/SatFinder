@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.ahk.satfinder.core.data.model.SatelliteDetail
 import com.ahk.satfinder.core.data.model.SatelliteSummary
 import com.ahk.satfinder.databinding.FragmentSatListBinding
+import com.ahk.satfinder.ui.customview.RecyclerViewDivider
 import com.ahk.satfinder.ui.satitem.SatSummaryAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -29,11 +30,14 @@ class SatList : Fragment() {
         binding = FragmentSatListBinding.inflate(layoutInflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        binding.satList.adapter = SatSummaryAdapter(emptyList()).apply {
-            val disposable = mutableOnClick.subscribe(
-                viewModel::onListItemClicked,
-            )
-            compositeDisposable.add(disposable)
+        binding.satList.apply {
+            adapter = SatSummaryAdapter(emptyList()).apply {
+                val disposable = mutableOnClick.subscribe(
+                    viewModel::onListItemClicked,
+                )
+                compositeDisposable.add(disposable)
+            }
+            addItemDecoration(RecyclerViewDivider(context))
         }
         return binding.root
     }
@@ -76,5 +80,6 @@ class SatList : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         compositeDisposable.clear()
+        viewModel.clearVariables()
     }
 }

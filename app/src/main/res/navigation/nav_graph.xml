@@ -9,7 +9,7 @@
         android:id="@+id/satList"
         android:name="com.ahk.satfinder.ui.satlist.SatList"
         android:label="fragment_sat_list"
-        tools:layout="@layout/fragment_sat_list" >
+        tools:layout="@layout/fragment_sat_list">
         <action
             android:id="@+id/action_satList_to_detail"
             app:destination="@id/detail" />
@@ -17,9 +17,14 @@
     <fragment
         android:id="@+id/detail"
         android:name="com.ahk.satfinder.ui.detail.Detail"
-        android:label="Detail" >
+        android:label="Detail">
         <argument
             android:name="detail"
             app:argType="com.ahk.satfinder.core.data.model.SatelliteDetail" />
+        <action
+            android:id="@+id/action_detail_to_satList"
+            app:destination="@id/satList"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

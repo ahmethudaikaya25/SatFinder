@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.ahk.satfinder.R
+import com.google.android.material.textview.MaterialTextView
 
 @BindingAdapter("setActivityColor")
 fun setActivityColor(view: View, isActive: Boolean) {
@@ -11,6 +12,15 @@ fun setActivityColor(view: View, isActive: Boolean) {
         view.setBackgroundColor(view.context.getColor(R.color.active_green))
     } else {
         view.setBackgroundColor(view.context.getColor(R.color.inactive_red))
+    }
+}
+
+@BindingAdapter("setActivityTextColor")
+fun setActivityTextColor(view: MaterialTextView, isActive: Boolean) {
+    if (isActive) {
+        view.setTextColor(view.context.getColor(R.color.md_theme_dark_onSurface))
+    } else {
+        view.setTextColor(view.context.getColor(R.color.md_theme_dark_onSurfaceVariant))
     }
 }
 

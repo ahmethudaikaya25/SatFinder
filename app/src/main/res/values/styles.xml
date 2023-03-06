@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="SatelliteItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:foregroundGravity">center_horizontal</item>
+        <item name="strokeWidth">0dp</item>
+    </style>
+
     <style name="ActiveSigner">
         <item name="android:layout_margin">@dimen/margin_small</item>
-        <item name="cornerRadius">10dp</item>
+        <item name="background">@drawable/active_lamb_border</item>
     </style>
 
     <style name="SmallTitle" parent="Widget.MaterialComponents.TextView">
@@ -32,5 +39,6 @@
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:translationZ">@dimen/z</item>
     </style>
 </resources>

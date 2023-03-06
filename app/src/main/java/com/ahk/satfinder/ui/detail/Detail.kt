@@ -46,4 +46,9 @@ class Detail : Fragment() {
             else -> {}
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.clearVariables()
+    }
 }

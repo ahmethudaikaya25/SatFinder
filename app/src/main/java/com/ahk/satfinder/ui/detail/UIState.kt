@@ -10,4 +10,5 @@ sealed class UIState {
     object Loading : UIState()
     data class Success(val position: Position) : UIState()
     data class Error(val exception: Throwable?, val message: String?) : UIState()
+    object NavigateToSatelliteListScreen : UIState()
 }

@@ -89,8 +89,13 @@ class DetailViewModel @Inject constructor(
             ).let { compositeDisposable.add(it) }
     }
 
+    fun clearVariables() {
+        mutableUIState.postValue(UIState.Empty)
+        compositeDisposable.clear()
+    }
+
     override fun onCleared() {
         super.onCleared()
-        compositeDisposable.clear()
+        clearVariables()
     }
 }

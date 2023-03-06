@@ -93,6 +93,11 @@ class SatListViewModel @Inject constructor(
         }
     }
 
+    fun clearVariables() {
+        mutableUIState.postValue(UIState.Idle)
+        compositeDisposable.clear()
+    }
+
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.clear()

@@ -11,8 +11,11 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        style="@style/SatelliteItem"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:foregroundGravity="center_horizontal">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="@dimen/card_width"
@@ -21,35 +24,35 @@
 
             <View
                 android:id="@+id/isActive"
+                style="@style/ActiveSigner"
                 android:layout_width="@dimen/active_signer_width"
                 android:layout_height="match_parent"
+                android:layout_margin="@dimen/margin_small"
                 app:layout_constraintStart_toStartOf="parent"
                 app:setActivityColor="@{satSummary.active}"
-                android:layout_margin="@dimen/margin_small"
-                tools:background="@color/active_green"
-                style="@style/ActiveSigner"/>
+                tools:background="@color/active_green" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_largest"
+                android:text="@{satSummary.name}"
                 app:layout_constraintStart_toEndOf="@id/isActive"
                 app:layout_constraintTop_toTopOf="@id/isActive"
-                android:fontFamily="poppins-medium-bold"
-                tools:text="Title"
-                android:text="@{satSummary.name}"/>
+                app:setActivityTextColor="@{satSummary.active}"
+                tools:text="Title" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/activity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_largest"
-                app:layout_constraintStart_toEndOf="@id/isActive"
                 app:layout_constraintBottom_toBottomOf="@id/isActive"
-                android:fontFamily="poppins-medium-bold"
-                tools:text="Activity"
-                app:setActivityText="@{satSummary.active}" />
+                app:layout_constraintStart_toEndOf="@id/isActive"
+                app:setActivityText="@{satSummary.active}"
+                app:setActivityTextColor="@{satSummary.active}"
+                tools:text="Activity" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
