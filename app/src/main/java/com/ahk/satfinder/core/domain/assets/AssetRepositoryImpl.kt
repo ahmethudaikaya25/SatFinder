@@ -60,7 +60,7 @@ class AssetRepositoryImpl(
                 } catch (e: Exception) {
                     return@flatMap Observable.error(
                         DataLayerException.AssetCouldNotBeParsed(
-                            "Could not parse json",
+                            "Position fetching error",
                         ),
                     )
                 }

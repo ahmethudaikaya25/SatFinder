@@ -11,14 +11,30 @@
             type="com.ahk.satfinder.ui.detail.DetailViewModel" />
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/md_theme_dark_error"
+            android:gravity="center_horizontal"
+            android:textColor="@color/md_theme_dark_onError"
+            android:visibility="gone"
+            app:setError="@{viewModel.uiState}"
+            tools:text="Error Text" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            style="@style/CircularLoadingIndicator"
+            app:setLoading="@{viewModel.uiState}" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical">
+            android:layout_gravity="center_vertical"
+            app:setContentVisibility="@{viewModel.uiState}">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/title"
@@ -82,6 +98,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+    </FrameLayout>
 
 </layout>

@@ -1,8 +1,11 @@
 package com.ahk.satfinder.ui.detail
 
+import android.view.View
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import com.ahk.satfinder.R
 import com.ahk.satfinder.ui.customview.TitledValue
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textview.MaterialTextView
 
 @BindingAdapter("setDetail")
@@ -37,5 +40,39 @@ fun setDetail(view: MaterialTextView, uiState: UIState) {
             }
         }
         else -> {}
+    }
+}
+
+@BindingAdapter("setError")
+fun errorVisibility(view: MaterialTextView, uiState: UIState) {
+    when (uiState) {
+        is UIState.Error -> {
+            view.visibility = View.VISIBLE
+            view.text = uiState.message
+        }
+        else -> {
+            view.visibility = View.GONE
+        }
+    }
+}
+
+@BindingAdapter("setLoading")
+fun loadingVisibility(view: CircularProgressIndicator, uiState: UIState) {
+    when (uiState) {
+        is UIState.Loading -> {
+            view.visibility = View.VISIBLE
+        }
+        else -> {
+            view.visibility = View.GONE
+        }
+    }
+}
+
+@BindingAdapter("setContentVisibility")
+fun setContentVisibility(view: ConstraintLayout, uiState: UIState) {
+    if (uiState is UIState.Error) {
+        view.visibility = View.GONE
+    } else {
+        view.visibility = View.VISIBLE
     }
 }

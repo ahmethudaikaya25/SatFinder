@@ -52,7 +52,6 @@ class DetailViewModel @Inject constructor(
     }
 
     fun loadSatellitePosition(id: Int) {
-        mutableUIState.postValue(UIState.Loading)
         getSatellitePositionsUseCase.invoke(id)
             .flatMap { positionList ->
                 val oldPositions = mutablePositionList.value
@@ -61,6 +60,9 @@ class DetailViewModel @Inject constructor(
                     if (positionList.contains(position)) {
                         newPositionList.remove(position)
                     }
+                }
+                if (newPositionList.isEmpty() && oldPositions != null) {
+                    newPositionList.add(oldPositions.last())
                 }
                 mutablePositionList.postValue(positionList)
                 return@flatMap Observable.just(newPositionList)

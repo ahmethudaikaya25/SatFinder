@@ -18,6 +18,19 @@
 
     <style name="BigTitle" parent="Widget.MaterialComponents.TextView">
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">36sp</item>
+    </style>
+
+    <style name="ErrorText">
+        <item name="android:background">@color/md_theme_dark_error</item>
+        <item name="android:textColor">@color/md_theme_dark_onError</item>
+    </style>
+
+    <style name="CircularLoadingIndicator">
+        <item name="android:indeterminate">true</item>
+        <item name="trackColor">@color/md_theme_dark_onSurface</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 </resources>
