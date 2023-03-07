@@ -3,6 +3,7 @@ package com.ahk.satfinder.core.domain.assets
 import com.ahk.satfinder.BuildConfig
 import com.ahk.satfinder.core.data.assets.AssetService
 import com.ahk.satfinder.core.data.model.*
+import com.ahk.satfinder.core.domain.util.DomainLayerException
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.reactivex.rxjava3.core.Observable
@@ -22,8 +23,8 @@ class AssetRepositoryImpl(
                 return@flatMap Single.just(summaries)
             } catch (e: Exception) {
                 return@flatMap Single.error<List<SatelliteSummary>>(
-                    DataLayerException.AssetCouldNotBeParsed(
-                        "Could not parse json",
+                    DomainLayerException.AssetCouldNotBeParsed(
+                        "Satellite list reading error",
                     ),
                 )
             }
@@ -41,8 +42,8 @@ class AssetRepositoryImpl(
                 return@flatMap Single.just(details)
             } catch (e: Exception) {
                 return@flatMap Single.error<List<SatelliteDetail>>(
-                    DataLayerException.AssetCouldNotBeParsed(
-                        "Could not parse json",
+                    DomainLayerException.AssetCouldNotBeParsed(
+                        "Satellite detail reading error",
                     ),
                 )
             }
@@ -59,7 +60,7 @@ class AssetRepositoryImpl(
                     return@flatMap Observable.just(positionFile.list)
                 } catch (e: Exception) {
                     return@flatMap Observable.error(
-                        DataLayerException.AssetCouldNotBeParsed(
+                        DomainLayerException.AssetCouldNotBeParsed(
                             "Position fetching error",
                         ),
                     )

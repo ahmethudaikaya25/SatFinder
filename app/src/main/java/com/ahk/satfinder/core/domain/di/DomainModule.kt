@@ -25,8 +25,8 @@ class DomainModule {
     ): DatabaseRepository = DatabaseRepositoryImpl(satelliteDetailDao)
 
     @Provides
-    fun provideGetAssetUseCase(assetRepository: AssetRepository): GetSatelliteSummariesUseCase =
-        GetSatelliteSummariesUseCaseImpl(assetRepository)
+    fun provideGetAssetUseCase(assetRepository: AssetRepository): GetSatelliteListUseCase =
+        GetSatelliteListUseCaseImpl(assetRepository)
 
     @Provides
     fun provideFilterAssetUseCase(assetRepository: AssetRepository): FilterAssetsUseCase =

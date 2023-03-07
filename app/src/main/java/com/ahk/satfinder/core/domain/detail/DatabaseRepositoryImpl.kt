@@ -1,8 +1,8 @@
 package com.ahk.satfinder.core.domain.detail
 
 import com.ahk.satfinder.core.data.db.SatelliteDetailDAO
-import com.ahk.satfinder.core.data.model.DataLayerException
 import com.ahk.satfinder.core.data.model.SatelliteDetail
+import com.ahk.satfinder.core.domain.util.DomainLayerException
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
@@ -12,12 +12,12 @@ class DatabaseRepositoryImpl(
     override fun getSatelliteDetailFromDB(id: Int) =
         satelliteDetailDAO.getOne(id)
             .onErrorResumeNext {
-                Single.error(DataLayerException.DatabaseCouldNotBeRead("Database read error"))
+                Single.error(DomainLayerException.DatabaseCouldNotBeRead("Database read error"))
             }
 
     override fun upsertSatelliteDetail(satelliteDetail: SatelliteDetail): Completable =
         satelliteDetailDAO.upsert(satelliteDetail)
             .onErrorResumeNext {
-                Completable.error(DataLayerException.DatabaseCouldNotBeWritten("Database write error"))
+                Completable.error(DomainLayerException.DatabaseCouldNotBeWritten("Database write error"))
             }
 }

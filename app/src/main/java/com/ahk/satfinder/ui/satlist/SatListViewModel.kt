@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ahk.satfinder.core.data.model.SatelliteSummary
 import com.ahk.satfinder.core.domain.assets.FilterAssetsUseCase
-import com.ahk.satfinder.core.domain.assets.GetSatelliteSummariesUseCase
+import com.ahk.satfinder.core.domain.assets.GetSatelliteListUseCase
 import com.ahk.satfinder.core.domain.detail.GetDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SatListViewModel @Inject constructor(
-    private val getSatelliteSummariesUseCase: GetSatelliteSummariesUseCase,
+    private val getSatelliteListUseCase: GetSatelliteListUseCase,
     private val filterAssetsUseCase: FilterAssetsUseCase,
     private val getDetailUseCase: GetDetailUseCase,
 ) : ViewModel() {
@@ -50,7 +50,7 @@ class SatListViewModel @Inject constructor(
 
     fun loadAssetList() {
         mutableUIState.postValue(UIState.Loading)
-        val disposable = getSatelliteSummariesUseCase.invoke()
+        val disposable = getSatelliteListUseCase.invoke()
             .subscribeOn(Schedulers.io())
             .subscribe({ satelliteSum ->
                 mutableUIState.postValue(UIState.Success(satelliteSum))
